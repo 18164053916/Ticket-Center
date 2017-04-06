@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ticketcenter.dao.ProgressDao">
+
+
+    <select id="getProgressDetails" resultType="com.ticketcenter.model.Progress">
+           SELECT tp.project_code as projectCode,tp.project_name as projectName,tp.start_date as projectStartDate,
+            coalesce(tp.finish_date,tp.end_date) as projectEndDate,tuser.display_name as projectLeader,tpss.start_date_item as startDate,
+            tpss.end_date_item as endDate,tp.is_end as isEnd,tpss.task_desc as taskDesc,tpss.risk_tips as riskTips,
+            tpss.is_updated as isUpdated,tpss.updated_desc as updatedDesc,tpss.remark as remark,tp.is_terminal as isTerminal,
+            coalesce(tp.terminal_reason,'无') as teminalReason,coalesce(tp.terminal_remark,'无') as teminalRemark,
+            tpss.progress_order as progressOrder,tpss.ratio as effortsHours,
+            (select tprogr.ratio from t_progress tprogr where tprogr.pro_id=#{id}
+            and tprogr.progress_order in (select max(tprogr11.progress_order)
+              from t_progress tprogr11 where tprogr11.pro_id=#{id})
+            ) as ratio,
+            (select  count(*) from t_progress t1 where t1.pro_id=#{id} and t1.is_risk=2) as riskTimes,
+            (select  count(*) from t_progress t2 where t2.pro_id=#{id} and t2.is_updated=2) as updateTimes,
+             array(select tu.display_name from t_project_user tpu
+            left join t_user tu on tu.id=tpu.user_id
+            left join t_project tpxx on tpxx.id=tpu.project_id
+            where tpu.project_id=#{id}
+            ) as members
+            from  t_progress tpss
+            right join t_project tp on tp.id=tpss.pro_id
+            left join t_user tuser on tuser.id=tp.project_leader_id
+            where tp.id=#{id}
+            order by tpss.progress_order desc;
+
+
+    </select>
+
+    <insert id="insertProgress">
+        insert into t_progress
+        (id,pro_id,ratio,task_desc,is_risk,risk_tips,is_updated,updated_desc,remark,progress_order,create_date,
+        create_person,update_date,update_person,start_date_item,end_date_item)
+        values (
+        nextval('s_progress'),#{projectId},#{progress.ratio},#{progress.taskDesc},#{progress.isRisk},
+       #{progress.riskTips},#{progress.isUpdated},#{progress.updatedDesc},#{progress.remark},
+       ((select coalesce(max(t.progress_order),0) from t_progress t where t.pro_id=#{projectId})+1),now(),#{user.id},now(),#{user.id},#{progress.startDate},#{progress.endDate}
+        );
+
+        <!--如果有风险提示，要将t_projet表的is_risk改成2-->
+        <if test="progress.isRisk==2">
+            update t_project
+            set is_risk=2,update_date=now()
+            where id=#{projectId};
+        </if>
+
+        <!--如果有变更，要将t_projet表的is_updated改成2-->
+        <if test="progress.isUpdated==2">
+            update t_project
+            set is_updated=2,update_date=now()
+            where id=#{projectId};
+        </if>
+
+        update t_project
+        set is_audit=2,update_date=now()
+        where id=#{projectId};
+
+    </insert>
+
+    <update id="updateProgress">
+
+        update t_progress set ratio=#{progress.ratio},task_desc=#{progress.taskDesc},is_risk=#{progress.isRisk},
+        risk_tips=#{progress.riskTips},is_updated=#{progress.isUpdated},updated_desc=#{progress.updatedDesc},
+        remark=#{progress.remark},update_date=now()
+        where id=#{progress.id};
+
+        <if test="progress.auditLogId>0">
+            update t_audit_log set audit_flag=2
+            where id=#{progress.auditLogId}
+        </if>
+    </update>
+
+
+    <select id="getProgressById" resultType="com.ticketcenter.model.Progress">
+      SELECT tpss.id as id,tpss.pro_id as proId,tpss.start_date_item as startDate,tpss.end_date_item as endDate,tpss.task_desc as taskDesc,
+      tpss.risk_tips as riskTips,tpss.is_updated as isUpdated,tpss.updated_desc as updatedDesc,
+      tpss.remark as remark,tpss.progress_order as progressOrder,tpss.ratio as ratio,tpss.is_risk as isRisk,tal.id as auditLogId
+        from t_progress tpss
+        left JOIN t_audit_log tal on tpss.id=tal.progress_id and tal.audit_flag=1
+        where tpss.id=#{progressId}
+    </select>
+
+    <!--查看每个项目的变更情况和风险提示情况-->
+    <select id="getProgressOptions" resultType="com.ticketcenter.model.Progress">
+        SELECT tpss.id as id,tpss.risk_tips as riskTips,tpss.is_updated as isUpdated,tpss.updated_desc as updatedDesc,
+        tpss.is_risk as isRisk,tpss.create_date as createDate,tpss.update_date as updateDate
+        from t_progress tpss
+        where tpss.pro_id=#{projectId}
+        <!--如果查询的是风险提示情况-->
+        <if test="queryType==1">
+            and tpss.is_risk=2
+        </if>
+        <!--如果查询的是变更情况-->
+        <if test="queryType==2">
+            and tpss.is_updated=2
+        </if>
+        order by tpss.create_date desc
+    </select>
+
+
+    <!--查询是否有待审核的进度-->
+    <select id="getProgressAuditing" resultType="com.ticketcenter.model.Progress">
+           select * from
+           (select tps.id  from t_project tp join t_progress tps on tp.id=tps.pro_id and tp.id=#{projectId}) t
+           where t.id not in (select distinct tal.progress_id from t_audit_log tal where tal.audit_flag=1)
+    </select>
+
+
+</mapper>

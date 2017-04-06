@@ -1,0 +1,1466 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+ *{
+	 margin:0;
+	 padding:0;
+	 box-sizing:border-box;
+ }
+html,body{
+	width:100%;
+	height:100%;
+}
+/********************************************全局样式***********************************************/
+html{
+	color:#333;
+	background:#fff;
+	font:12px Arial, simsun, sans-serif, "微软雅黑";
+}
+body,div,dl,dt,dd,ul,ol,lo,h1,h2,h3,h4,h5,h6,pre,code,form,fieldest,legend,input,button,textarea,p,blockquote,th,td{
+	margin:0;
+	padding:0;
+	outline:0 none;
+}
+table{
+	border-collapse:collapse;/**并和边框**/
+	border-spacing:0;/**格边框之间的距离为0**/
+}
+th{
+	white-space:nowrap;/**表格单元格内的文本不换行**/
+}
+
+fieldset,img{/**<fieldset> 标签将表单内容的一部分打包，生成一组相关表单的字段,<legend> 标签为 fieldset 元素定义标题**/
+	border:0;
+}
+address,captioon,cite,code,dfn,em,strong,th,var,optgroup{/**address标签定义联系信息,caption元素定义表格标题,cite标签来定义作品的标题,code标签用于表示计算机源代码或者其他机器可以阅读的文本内容,dfn>标签可标记那些对特殊术语或短语的定义,em标签告诉浏览器把其中的文本表示为强调的内容,<var>标签表示变量的名称，或者由用户提供的值,<optgroup> 标签把相关的选项组合在一起：**/
+	font-style:inherit;/**inherit规定应该从父元素继承字体样式。**/
+	font-weight:inherit;
+}
+
+del,ins{/**del删除文档中的文本标记，ins新插入文档中的文本标记**/
+	text-decoration:none;
+}
+
+li{
+	list-style:none;
+}
+caption,th{
+	text-align:left;
+}
+
+h1,h2,h3,h4,h5,h6{
+	font-size:100%;
+	font-weight:normal;
+}
+
+input,button,textarea,select,optgroup,option{/**各种表单元素，<option> 标签定义下拉列表中的一个选项**/
+    border:1px solid #c0bebe;
+	color:#444;
+	font-size:12px;
+	font-style:inherit;
+	font-weight:inherit;
+	font-family:Arial, simsun, Microsoft Yahei;
+	line-height:100%;
+}
+
+select,optgroup,option{
+	height:26px;
+	font-size:13px;
+}
+
+input:focus,button:focus,textarea:focus,select:focus{/**:focus已获取焦点的元素的样式**/
+    border-color:rgba(104,142,193, 0.8);
+	outline:0;
+	box-shadow:inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(104,142,193, 0.6);
+}
+
+input[readonly]:focus{/**属性为[只读]时候的焦点**/
+	box-shadow:none;
+}
+input[type=text],input[type=password]{
+
+	text-indent:3px;
+}
+
+input[type=radio],input[type=checkbox]{
+	border:none;
+}
+textarea{
+	resize:none;/**用户无法调整元素的尺寸**/
+}
+
+a{/**a标签原始样式**/
+	text-decoration:none;
+	color:#333;
+	outline:0 none;/**outline （轮廓）为0**/
+}
+
+a:link{/**未访问时的状态样式**/
+	text-decoration:none;
+	outline:0 none;
+}
+
+a:visited{/* 已访问过的状态 */
+	text-decoration:none;
+	outline:0 none;
+}
+a:hover{/* 鼠标移动到链接上时的状态 */
+	text-decoration:none;
+	outline:0 none;
+}
+
+a:active{/* 鼠标按下去时的状态 */
+	text-decoration:none;
+	outline:0 none;
+}
+
+
+/****************************************************************************/
+.clear {
+	width: 0px;
+	height: 0px;
+	overflow: hidden;
+	clear: both;
+	
+}
+
+/*********************进度百分比*************************/
+.w_jd62{
+	width:62%;
+}
+.w_jd75{
+	width:75%;
+}
+	
+.w_jd87{
+	width:87%;
+}
+.w_jd96{
+	width:96%;
+}
+.w_jd100{
+	width:100%;
+}
+/**************************************PC——login*******************************************/
+#login_body{
+	background: url(../imges/login_bg.jpg) center center #305a98;
+	background-size:cover;
+	height:100%;
+	width:100%;
+	display: box; 
+	display: -webkit-box; 
+	display: -moz-box;  
+	-webkit-box-align:center; 
+	-moz-box-align:center;
+}
+
+.login_top{
+	position:fixed;
+	z-index:10;
+	left:0;
+	top:0;
+	width:100%;
+	height:40px;
+	background:url(../imges/bg02.jpg) repeat-x;
+	box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+	
+}
+.login_top h2{
+	display:block;
+	padding-left:40px;
+	height:40px;
+	background:url(../imges/ico01.png) no-repeat 8px;
+	background-size:24px 24px;
+	font-size:16px;
+	font-family:"微软雅黑";
+	line-height:40px;
+	font-weight:bold;
+	text-shadow:1px 1px 1px #fff;
+	float:left;
+}
+
+.login_box{
+	width:458px;
+	height:480px;
+	padding-bottom:38px;
+	padding-top:270px;
+	padding-left:84px;
+	padding-right:86px;
+	background:url(../imges/login_bg02.png) no-repeat;
+	vertical-align:middle;
+	-webkit-vertical-align:middle;
+	-moz-vertical-align:middle;
+	margin:0 auto;
+	position:relative;
+	
+}
+
+.login_in{
+	width:100%;
+	height:auto;
+}
+
+.login_in li{
+	width:100%;
+	height:38px;
+	padding-bottom:10px;
+	display:inline-block;
+}
+
+.login_in li label{
+	width:65px;
+	text-align:right;
+	line-height:28px;
+	display:inline-block;
+}
+
+.input_txt{
+	width:220px;
+	height:28px !important;
+	line-height:26px !important;
+	box-sizing:border-box;
+	border:1px solid #b6b9be;
+	border-radius:2px;
+	font-size:14px;
+	box-shadow: inset 0px 2px 5px rgba(0,0,0,0.075);
+	font-family:"微软雅黑";
+}
+	
+.login_btn_box{
+	width:100%;
+	padding-left:67px;
+	height:38px;
+	padding-top:10px;
+}
+
+.bnt{
+	padding:2px 20px;	
+	border-radius:3px;
+	line-height:22px;
+	font-size:12px;
+	box-sizing:border-box;
+	white-space:nowrap;
+	margin:0 5px 5px 5px;
+	display:block;
+	cursor:pointer;
+}
+a.bnt:hover{
+	text-decoration:underline;
+    filter:alpha(opacity=90); 
+    -moz-opacity:0.9; 
+    opacity:0.9;
+}
+.blue{
+	background:#708fb7;
+	border:1px solid #5583b7;
+	color:#fff;
+	box-sizing:border-box;
+}
+.red{
+	background:#cb6c77;
+	border:1px solid #b55b65;
+	color:#fff;
+	box-sizing:border-box;
+}
+.gray{
+	background:#9a9a9a;
+	border:1px solid #7f7f7f;
+	color:#fff;
+	box-sizing:border-box;
+	cursor:not-allowed;
+}
+a.gray:hover{
+	text-decoration:none;
+	 filter:alpha(opacity=100); 
+    -moz-opacity:1; 
+    opacity:1;
+}
+.bnt.black{
+	background:#636363;
+	border:1px solid #555;
+	color:#fff;
+}	
+
+.login_ts{
+	position:absolute;
+	z-index:10;
+	top:240px;
+	right:80px;
+	color:#b55b65;
+	font-size:12px;
+}
+	
+
+
+/**************************************PC——头部*******************************************/
+#page_body{
+	background:#fff;
+	height:100%;
+	width:100%;
+	min-width:1375px;
+	width:auto;
+
+	position:relative;
+	
+}
+
+.top_right{
+	float:right;
+	width:auto;
+	height:40px;
+	display:inline-block;
+	font-size: 0;
+    -webkit-text-size-adjust:none;
+}
+.top_right li{
+	height:40px;
+	font-size:12px;
+	line-height:24px;
+	width:auto;
+	padding:8px 10px 8px 0;
+	color:#000;
+	display:inline-block;
+}
+.top_right li a{
+	color:#777;
+	height:24px;
+	display:inline-block;
+}
+
+.top_user{
+	padding-left:26px;
+	background:url(../imges/icon03.png) left top no-repeat;
+}
+.top_out{
+	padding-left:26px;
+	background:url(../imges/icon04.png) left top no-repeat;
+}
+.top_out:hover{
+	color:#333;
+	background:url(../imges/icon05.png) left top no-repeat;
+}
+
+/*******************************主体部分*************************************/
+.main_body{
+	width:100%;
+	height:100%;
+	box-sizing:border-box;
+	padding-top:40px;
+	background:#5a7ead;
+}
+
+/*********************左侧导航******************/
+.left_navbox{
+	width:190px;
+	height:100%;
+	box-sizing:border-box;
+	float:left;
+	padding-top:51px;
+}
+
+.left_nav{
+	width:100%;
+}
+.left_nav li{
+	height:auto;
+	width:100%;
+}
+.left_nav li a{
+	height:49px;
+	width:100%;
+	display:block;
+	box-sizing:border-box;
+	padding-left:65px;
+	color:#dbe8fa;
+	transition:width 0.5s;
+	-moz-transition:background 0.5s;/***定义改变width，height，background属性，时间2秒，默认时间曲线，开始时间默认***/
+	-webkit-transition:background 0.5s;
+	-o-transition:background 0.5s;
+	font-size:14px;
+	line-height:48px;
+	font-family:"微软雅黑";
+}
+.nav01{
+	background:url(../imges/btn_bg01.png) no-repeat 30px top;
+}
+a.nav01:hover{
+	background:url(../imges/btn_bg01.png) no-repeat 30px -48px #3c5c86;
+	border-bottom:1px solid #7297c9;
+	color:#fff;
+	
+}
+.nav01.active{
+	background:url(../imges/btn_bg01.png) no-repeat 30px -48px #3c5c86;
+	border-bottom:1px solid #7297c9;
+	color:#fff;
+}
+
+.nav02{
+	background:url(../imges/btn_bg02.png) no-repeat 30px top;
+}
+a.nav02:hover{
+	background:url(../imges/btn_bg02.png) no-repeat 30px -48px #3c5c86;
+	border-bottom:1px solid #7297c9;
+	color:#fff;
+
+}
+.nav02.active{
+	background:url(../imges/btn_bg02.png) no-repeat 30px -48px #3c5c86;
+	border-bottom:1px solid #7297c9;
+	color:#fff;
+}
+
+.nav03{
+	background:url(../imges/btn_bg03.png) no-repeat 30px top;
+}
+a.nav03:hover{
+	background:url(../imges/btn_bg03.png) no-repeat 30px -48px #3c5c86;
+	border-bottom:1px solid #7297c9;
+	color:#fff;
+
+}
+.nav03.active{
+	background:url(../imges/btn_bg03.png) no-repeat 30px -48px #3c5c86;
+	border-bottom:1px solid #7297c9;
+	color:#fff;
+}
+
+/**********************右侧内容*********************/
+.right_main{
+	float:left;
+	width:calc(100% - 190px);
+	background:#fff;
+	height:100%;
+	border-top:3px solid #5a7ead;
+	box-sizing:border-box;
+}
+
+.r_main_top{
+	width:100%;
+	height:48px;
+	background:#ebedef;
+	border-bottom:1px solid #d1d3d5;
+	padding:5px 10px;
+}
+
+.main_tit_l{
+	float:left;
+	height:36px;
+	display:inline-block;
+	
+}
+.main_tit_l img{
+	float:left;
+	width:24px;
+	height:24px;
+	margin:6px 6px 0 0;
+}
+
+.main_tit_l a{
+	float:left;
+	line-height:36px;
+	color:#555555;
+
+}
+.main_tit_l a:hover{
+	text-decoration:underline;
+}
+
+.main_tit_l span{
+	float:left;
+	line-height:36px;
+	padding:0 5px;
+}
+
+.main_tit_r{
+	float:right;
+	height:36px;
+	padding-top:4px;
+	box-sizing:border-box;
+}
+
+.main_in{
+	width:100%;
+	height:auto;
+	padding:10px;
+}
+
+.table_top{
+	width:100%;
+	height:38px;
+	border:1px solid #c3c5c9;
+	background:url(../imges/bg03.jpg) repeat-x;
+}
+
+.add_btn{
+	width:65px;
+	height:26px;
+	background:url(../imges/icon09.png) no-repeat 5px 4px;
+	background-size:16px;
+	border:1px solid #c3c5c9;
+	border-radius:2px;
+	margin:5px 0 5px 10px;
+	padding-left:28px;
+	text-align:left;
+	float:left;
+}
+.del_btn{
+	width:65px;
+	height:26px;
+	background:url(../imges/icon13.png) no-repeat 5px 4px;
+	background-size:16px;
+	border:1px solid #c3c5c9;
+	border-radius:2px;
+	margin:5px 0 5px 10px;
+	padding-left:28px;
+	text-align:left;
+	float:left;
+}
+.del_btn:focus{/**:focus已获取焦点的元素的样式**/
+    border-color:rgba(181,91,101, 0.8);
+	outline:0;
+	box-shadow:inset 0 1px 1px rgba(0,0,0,0.075), 0 0 8px rgba(181,91,101, 0.6);
+}
+
+
+
+.table_input_box{
+	float:right;
+	height:26px;
+	margin:5px 10px;
+}
+
+.search_box{
+	display:inline-block;
+	height:26px;
+	font-size: 0;
+    -webkit-text-size-adjust:none;
+}
+.search_box li{
+	display:inline-block;
+	height:26px;
+	padding-right:15px;
+	font-size:12px;
+	line-height:26px;
+	color:#555;
+}
+.input_search{
+	width:150px;
+	height:24px;
+	border:1px solid #a3a6aa;
+	border-radius:2px;
+	margin-left:4px;
+	box-sizing:border-box;
+}
+.input_search.w80{
+	width:80px;
+}
+.search_btn{
+	width:65px;
+	height:26px;
+	background:url(../imges/icon10.png) no-repeat 5px 4px;
+	background-size:16px;
+	border:1px solid #c3c5c9;
+	border-radius:2px;
+	padding-left:28px;
+	text-align:left;
+}
+
+.table_box{
+	width:100%;
+	height:auto;
+	border-right:1px solid #c3c5c9;
+	border-left:1px solid #c3c5c9;
+}
+.fx_table_con{
+	width:100%;
+	border-collapse:collapse;
+
+}
+.table_head{
+	background:#e0e3e6;
+}
+
+.fx_table_con .table_head th{
+	text-align:center;
+	padding:5px 10px;
+	line-height:24px;
+	border-bottom:1px solid #c3c5c9;
+	border-right:1px solid #c3c5c9;
+	color:#3c444f;
+	font-weight:bold;
+	font-size:13px;
+	overflow:hidden;
+    word-break:normal;
+}
+.fx_table_con .table_head th:last-child{
+	border-right:none;
+}
+
+.fx_table_con tbody{
+	display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+.fx_table_con tbody tr td{
+	text-align:left;
+	padding:5px 10px 0 10px;
+	line-height:24px;
+	border-bottom:1px solid #c3c5c9;
+	border-right:1px solid #c3c5c9;
+	color:#555;
+	font-size:12px;
+    word-break:break-all;
+	background:fff;
+}
+.fx_table_con tbody tr:nth-child(2n){
+	background:#fafbfb;	
+}
+.fx_table_con tbody tr td:last-child{
+	border-right:none;
+	white-space:nowrap;	
+}
+
+.f_left{
+	float:left;
+}
+.f_right{
+	float:right;
+}
+
+.table_btnbox{
+	max-width:200px;
+	margin:0 auto;
+	height:auto;
+}
+.fx_table_con tbody tr .check_box{
+	text-align:center;
+}
+
+/***************************翻页******************************************/
+.tcdPageCode{
+	float:right;
+	padding: 15px 0px;
+	text-align:left;
+	color: #ccc;
+	}
+.tcdPageCode a{
+	display: inline-block;
+	color: #5a7ead;
+	display: inline-block;
+	height: 25px;	
+	line-height: 25px;	
+	padding: 0 10px;
+	border: 1px solid #ddd;	
+	margin: 0 2px;
+	border-radius: 2px;
+	vertical-align: middle;
+	}
+.tcdPageCode a:hover{
+	text-decoration: none;
+	border: 1px solid #5a7ead;
+	}
+.tcdPageCode span.current{
+	display: inline-block;
+	height: 25px;
+	line-height: 25px;
+	padding: 0 10px;
+	margin: 0 2px;
+	color: #fff;
+	background-color: #708fb7;	
+	border: 1px solid #5a7ead;
+	border-radius: 1px;
+	vertical-align: middle;
+	}
+.tcdPageCode span.disabled{	
+    display: inline-block;
+	height: 25px;
+	line-height: 25px;
+	padding: 0 10px;
+	margin: 0 2px;	
+	color: #bfbfbf;
+	background: #f2f2f2;
+	border: 1px solid #bfbfbf;
+	border-radius: 2px;
+	vertical-align: middle;
+	}
+
+
+/****************************************添加基本信息弹出页面********************************************/
+.addxx_box{
+	position:fixed;
+	left:0;
+	top:0;
+	height:100%;
+	width:100%;
+	background:rgba(0,0,0,0.5);
+	opacity:0;
+	visibility:hidden;
+	transition:opacity 0.3s 0s,visibility 0s 0.3s;/**0.3秒的透明过渡，和0.3秒后不显示**/
+	z-index:9999;
+	display: box; 
+	display: -webkit-box; 
+	display: -moz-box;  
+	-webkit-box-align:center; 
+	-moz-box-align:center;
+}
+
+.addxx_box_container{
+	width:900px;
+	height:auto;
+	margin:5% auto;
+	vertical-align:middle;
+	-webkit-vertical-align:middle;
+	-moz-vertical-align:middle;
+	background:#fff;
+	border-radius:5px;
+	box-shadow:0 0 20px rgba(0,0,0,0.3);
+	transition-property:transform;/**transition-property 属性规定应用过渡效果的 CSS 属性的名称**/
+	transform:scale(0.5);/**scale() 方法进行缩放属性**/
+	transition-duration:0.3s;/**过渡时间为0.3秒**/
+	display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+    -webkit-flex-direction: column;
+    flex-direction: column;	
+}
+
+.addxx_box.is-visible{/**显示时的样式**/
+	opacity:1;
+	visibility:visible;
+	transition:opacity 0.3s 0s, visibility 0s 0s;/**0.3秒的透明过渡，0秒立即显示**/
+}
+
+.is-visible .addxx_box_container {
+	-webkit-transform:scale(1); 
+	-moz-transform:scale(1); 
+	-ms-transform:scale(1); 
+	-o-transform:scale(1); 
+	transform:scale(1);
+	}
+	
+/****************************************编辑基本信息弹出页面********************************************/
+.edit_box{
+	position:fixed;
+	left:0;
+	top:0;
+	height:100%;
+	width:100%;
+	background:rgba(0,0,0,0.5);
+	opacity:0;
+	visibility:hidden;
+	transition:opacity 0.3s 0s,visibility 0s 0.3s;/**0.3秒的透明过渡，和0.3秒后不显示**/
+	z-index:9999;
+	display: box; 
+	display: -webkit-box; 
+	display: -moz-box;  
+	-webkit-box-align:center; 
+	-moz-box-align:center;
+}
+
+.edit_box_container{
+	width:900px;
+	height:auto;
+	margin:5% auto;
+	vertical-align:middle;
+	-webkit-vertical-align:middle;
+	-moz-vertical-align:middle;
+	background:#fff;
+	border-radius:5px;
+	box-shadow:0 0 20px rgba(0,0,0,0.3);
+	transition-property:transform;/**transition-property 属性规定应用过渡效果的 CSS 属性的名称**/
+	transform:scale(0.5);/**scale() 方法进行缩放属性**/
+	transition-duration:0.3s;/**过渡时间为0.3秒**/
+	display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+    -webkit-flex-direction: column;
+    flex-direction: column;	
+}
+
+.edit_box.is-visible{/**显示时的样式**/
+	opacity:1;
+	visibility:visible;
+	transition:opacity 0.3s 0s, visibility 0s 0s;/**0.3秒的透明过渡，0秒立即显示**/
+}
+
+.is-visible .edit_box_container {
+	-webkit-transform:scale(1); 
+	-moz-transform:scale(1); 
+	-ms-transform:scale(1); 
+	-o-transform:scale(1); 
+	transform:scale(1);
+	}
+	
+
+	
+/****************************************提示信息弹出页面********************************************/
+.prompt_box{
+	position:fixed;
+	left:0;
+	top:0;
+	height:100%;
+	width:100%;
+	background:rgba(0,0,0,0.5);
+	opacity:0;
+	visibility:hidden;
+	transition:opacity 0.3s 0s,visibility 0s 0.3s;/**0.3秒的透明过渡，和0.3秒后不显示**/
+	z-index:9999;
+	display: box; 
+	display: -webkit-box; 
+	display: -moz-box;  
+	-webkit-box-align:center; 
+	-moz-box-align:center;
+}
+
+.prompt_box_container{
+	width:700px;
+	height:auto;
+	margin:5% auto;
+	vertical-align:middle;
+	-webkit-vertical-align:middle;
+	-moz-vertical-align:middle;
+	background:#fff;
+	border-radius:5px;
+	box-shadow:0 0 20px rgba(0,0,0,0.3);
+	transition-property:transform;/**transition-property 属性规定应用过渡效果的 CSS 属性的名称**/
+	transform:scale(0.5);/**scale() 方法进行缩放属性**/
+	transition-duration:0.3s;/**过渡时间为0.3秒**/
+	display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+    -webkit-flex-direction: column;
+    flex-direction: column;	
+}
+
+.prompt_box.is-visible{/**显示时的样式**/
+	opacity:1;
+	visibility:visible;
+	transition:opacity 0.3s 0s, visibility 0s 0s;/**0.3秒的透明过渡，0秒立即显示**/
+}
+
+.is-visible .prompt_box_container {
+	-webkit-transform:scale(1); 
+	-moz-transform:scale(1); 
+	-ms-transform:scale(1); 
+	-o-transform:scale(1); 
+	transform:scale(1);
+	}
+	
+
+
+
+
+		
+/**************************弹出页面内部结构****************************/
+.tc_top{
+	width:100%;
+	height:42px;
+	background:#e8e8e8;
+	border-radius:5px 5px 0 0;
+	font-size:14px;
+	text-align:center;
+	position:relative;
+	line-height:42px;
+	font-weight:bold;
+	font-family:"微软雅黑";
+	box-shadow:inset 2px 0 3px rgba(0,0,0,0.05);
+	position:relative;
+}
+
+.tc_main{
+	-webkit-box-flex: 1; 
+    -webkit-flex: 1;
+    flex: 1;
+	width:100%;
+	box-sizing:border-box;
+	border-bottom:1px solid #d3d4d5;
+	border-top:1px solid #d3d4d5;
+	padding:30px 50px;
+	background:#fff;
+	overflow:auto;
+}
+.tc_bottom{
+	width:100%;
+	min-height:54px;
+	background:#e8e8e8;
+	border-radius:0 0 5px 5px;
+	text-align:center;
+	box-shadow:inset -2px 0 3px rgba(0,0,0,0.05);
+}
+
+.close_bnt{
+	width:24px;
+	height:24px;
+	display:block;
+	position:absolute;
+	z-index:100;
+	right:10px;
+	top:10px;
+	background:url(../imges/close01.png) no-repeat;
+	cursor:pointer;
+}
+a.close_bnt:hover{
+	background:url(../imges/close02.png) no-repeat;
+}
+
+/************************添加基本信息表单*****************************/
+
+.input_list{
+	width:100%;
+	height:auto;
+}
+.input_list li{
+	padding-bottom:20px;
+	height:auto;
+	min-height:28px;
+	
+}
+.input_list li label{
+	width:110px;
+	text-align:right;
+	line-height:28px;
+	display:inline-block;
+	color:#444;
+	vertical-align:top;
+}
+
+.lable_a{
+	width:40px !important;
+	text-align:left !important;
+}
+.radio_a{
+	margin-top:8px;
+	margin-right:4px;
+	margin-left:4px;
+}
+
+/********************************日历选择器的局部样式修改**********************************/
+	.datepuicker_input{
+		height:28px;
+		width:132px;
+		border:1px solid #c0bebe;
+		padding:0 24px 0 4px;
+		background:url(../imges/data.png) no-repeat 108px center #fff;
+		vertical-align:middle;
+		border-radius:2px;
+		margin-right:20px;
+		margin-left:5px;
+		box-sizing:border-box;
+	}
+		
+	.ui-datepicker {/**日历尺寸**/
+	width: 20em;
+	padding: .2em .2em 0;
+	display: none;
+}
+	
+.ui-widget-header {/**日期选择器头部颜色**/
+	border: 1px solid #5a7ead;
+	background:#708fb7;
+	background:linear-gradient(#708fb7, #5a7ead);
+	color: #ffffff;
+	font-weight: bold;
+}   
+    .ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus {/**鼠标移入的颜色**/
+	border: 1px solid #5a7ead;
+	background: #c9e7ff;
+	background:linear-gradient(#c9dcff,#e7f1ff);
+	font-weight: bold;
+	color: #5a7ead;
+}
+
+.ui-state-active .ui-icon {/**箭头按钮点击效果**/
+	background-image:url(../imges/ui-icons_078edf_256x240.pn);
+}
+
+.ui-datepicker td span,
+.ui-datepicker td a {/**日期框的样式**/
+	display: block;
+	padding: .4em .2em;
+	text-align:center;
+	text-decoration: none;
+}
+
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {/**选择到的日期样式**/
+	border: 1px solid #5a7ead;
+	background:#2883ca;
+	background:linear-gradient(#708fb7, #5a7ead);
+	font-weight: bold;
+	color: #fff;
+}
+
+.xx_input{
+	    height:28px;
+		width:232px;
+		border:1px solid #c0bebe;
+		padding:0 4px;
+		vertical-align:middle;
+		border-radius:2px;
+		margin-right:20px;
+		margin-left:5px;
+		box-sizing:border-box;
+}
+
+.tb_btnbox{
+	width:300px;
+	height:42px;
+	margin:12px auto 0 auto;
+}
+.textarea_xx{
+		width:430px;
+		height:80px;
+		border:1px solid #c0bebe;
+		padding:0 4px;
+		border-radius:2px;
+		margin-right:20px;
+		margin-left:5px;
+		box-sizing:border-box;
+		line-height:22px;
+}
+
+
+/*************提示信息******************/
+.prompt_in{
+	width:500px;
+	box-sizing:border-box;
+	padding-left:90px;
+	height:auto;
+	min-height:66px;
+	margin:0 auto;
+	display:table-row;
+}
+.prompt_in img{
+	float:left;
+	width:70px;
+	height:66px;
+	display:block;
+	margin:0 15px;
+}
+.prompt_txt{
+	float:left;
+	height:auto;
+	min-height:66px;
+	width:calc(100% - 100px);
+	padding-right:20px;
+}
+.prompt_in h3{
+	vertical-align:middle;
+	-webkit-vertical-align:middle;
+	-moz-vertical-align:middle;
+	font-size:14px;
+	line-height:24px;
+	word-break: break-all; word-wrap:break-word;
+	
+}
+
+/*********************************进度维护页面*****************************/
+.xm_jd{
+	min-width:160px;
+	height:24px;
+}
+.xm_jd .xm_jdin{
+	width:calc(100% - 40px);
+	background:#919293;
+	height:8px;
+	margin:8px 0;
+	border-radius:3px;
+	float:left;
+	overflow:hidden;
+}
+.xm_jdtxt{
+	width:35px;
+	float:left;
+	margin-left:5px;
+}
+.red_line{
+	height:8px;
+	display:block;
+	background:#b55b65;
+}
+
+
+.blue_txt{
+	color:#5a7ead;
+}
+.red_txt{
+	color:#c93a4a;
+}
+
+.blue.icon_jt{
+	background:url(../imges/icon12.png) no-repeat 10px 9px #708fb7;
+	border:1px solid #5583b7;
+	color:#fff;
+	box-sizing:border-box;
+}
+
+
+.pro_box{
+	width:100%;
+	height:auto;
+	padding:15px 30px;
+	box-sizing:border-box;
+	border:1px solid #c3c5c9;
+	background:#fafbfb;
+	margin-bottom:10px;
+	box-shadow:0px 2px 3px rgba(0,0,0,0.15);
+	position:relative;
+}
+.pro_box h3{
+	line-height:20px;
+	padding:2px 0;
+	font-size:12px;
+	color:#555;
+}
+.pro_box h3 span{
+	color:#222;
+	font-weight:bold;
+}
+
+
+/****************************************添加新任务弹出页面********************************************/
+.addtask_box{
+	position:fixed;
+	left:0;
+	top:0;
+	height:100%;
+	width:100%;
+	background:rgba(0,0,0,0.5);
+	opacity:0;
+	visibility:hidden;
+	transition:opacity 0.3s 0s,visibility 0s 0.3s;/**0.3秒的透明过渡，和0.3秒后不显示**/
+	z-index:9999;
+	display: box; 
+	display: -webkit-box; 
+	display: -moz-box;  
+	-webkit-box-align:center; 
+	-moz-box-align:center;
+}
+
+.addtask_box_container{
+	width:900px;
+	height:auto;
+	margin:5% auto;
+	vertical-align:middle;
+	-webkit-vertical-align:middle;
+	-moz-vertical-align:middle;
+	background:#fff;
+	border-radius:5px;
+	box-shadow:0 0 20px rgba(0,0,0,0.3);
+	transition-property:transform;/**transition-property 属性规定应用过渡效果的 CSS 属性的名称**/
+	transform:scale(0.5);/**scale() 方法进行缩放属性**/
+	transition-duration:0.3s;/**过渡时间为0.3秒**/
+	display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+    -webkit-flex-direction: column;
+    flex-direction: column;	
+}
+
+.addtask_box.is-visible{/**显示时的样式**/
+	opacity:1;
+	visibility:visible;
+	transition:opacity 0.3s 0s, visibility 0s 0s;/**0.3秒的透明过渡，0秒立即显示**/
+}
+
+.is-visible .addtask_box_container {
+	-webkit-transform:scale(1); 
+	-moz-transform:scale(1); 
+	-ms-transform:scale(1); 
+	-o-transform:scale(1); 
+	transform:scale(1);
+	}
+	
+	
+	
+/****************************************编辑任务弹出页面********************************************/
+.edittask_box{
+	position:fixed;
+	left:0;
+	top:0;
+	height:100%;
+	width:100%;
+	background:rgba(0,0,0,0.5);
+	opacity:0;
+	visibility:hidden;
+	transition:opacity 0.3s 0s,visibility 0s 0.3s;/**0.3秒的透明过渡，和0.3秒后不显示**/
+	z-index:9999;
+	display: box; 
+	display: -webkit-box; 
+	display: -moz-box;  
+	-webkit-box-align:center; 
+	-moz-box-align:center;
+}
+
+.edittask_box_container{
+	width:900px;
+	height:auto;
+	margin:5% auto;
+	vertical-align:middle;
+	-webkit-vertical-align:middle;
+	-moz-vertical-align:middle;
+	background:#fff;
+	border-radius:5px;
+	box-shadow:0 0 20px rgba(0,0,0,0.3);
+	transition-property:transform;/**transition-property 属性规定应用过渡效果的 CSS 属性的名称**/
+	transform:scale(0.5);/**scale() 方法进行缩放属性**/
+	transition-duration:0.3s;/**过渡时间为0.3秒**/
+	display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+    -webkit-flex-direction: column;
+    flex-direction: column;	
+}
+
+.edittask_box.is-visible{/**显示时的样式**/
+	opacity:1;
+	visibility:visible;
+	transition:opacity 0.3s 0s, visibility 0s 0s;/**0.3秒的透明过渡，0秒立即显示**/
+}
+
+.is-visible .edittask_box_container {
+	-webkit-transform:scale(1); 
+	-moz-transform:scale(1); 
+	-ms-transform:scale(1); 
+	-o-transform:scale(1); 
+	transform:scale(1);
+	}
+		
+		
+/****************************************添加基本信息弹出页面********************************************/
+.jd_box{
+	position:fixed;
+	left:0;
+	top:0;
+	height:100%;
+	width:100%;
+	background:rgba(0,0,0,0.5);
+	opacity:0;
+	visibility:hidden;
+	transition:opacity 0.3s 0s,visibility 0s 0.3s;/**0.3秒的透明过渡，和0.3秒后不显示**/
+	z-index:9999;
+	display: box; 
+	display: -webkit-box; 
+	display: -moz-box;  
+	-webkit-box-align:center; 
+	-moz-box-align:center;
+}
+
+.jd_box_container{
+	width:1100px;
+	height:auto;
+	margin:5% auto;
+	vertical-align:middle;
+	-webkit-vertical-align:middle;
+	-moz-vertical-align:middle;
+	background:#fff;
+	border-radius:5px;
+	box-shadow:0 0 20px rgba(0,0,0,0.3);
+	transition-property:transform;/**transition-property 属性规定应用过渡效果的 CSS 属性的名称**/
+	transform:scale(0.5);/**scale() 方法进行缩放属性**/
+	transition-duration:0.3s;/**过渡时间为0.3秒**/
+	display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+	-moz-box-orient: vertical;
+    -webkit-flex-direction: column;
+    flex-direction: column;	
+}
+
+.jd_box.is-visible{/**显示时的样式**/
+	opacity:1;
+	visibility:visible;
+	transition:opacity 0.3s 0s, visibility 0s 0s;/**0.3秒的透明过渡，0秒立即显示**/
+}
+
+.is-visible .jd_box_container {
+	-webkit-transform:scale(1); 
+	-moz-transform:scale(1); 
+	-ms-transform:scale(1); 
+	-o-transform:scale(1); 
+	transform:scale(1);
+	}
+			
+
+/*********************************查看进度详情***************************************/
+.pro_jd_box{
+	width:100%;
+	height:auto;
+	min-height:300px;
+	overflow:auto;
+	position:relative;
+}
+
+.pro_jd_table{
+	width:auto;
+}
+.pro_jd_t tr th{
+	text-align:center;
+	width:80px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	word-break:keep-all;
+	white-space:nowrap;
+	background:#efefef;
+	padding:5px 8px;
+	font-family:"微软雅黑";
+	border-bottom:3px solid #3c444f;
+
+}
+.pro_jd_t tr th:nth-child(2n){
+	background:#fff;	
+}
+.pro_jd_t tr th h3{
+	font-weight:bold;
+	line-height:24px;
+}
+.pro_jd_t tr th p{
+	color:#777;
+}
+.pro_jd_table tbody .act_tr{
+	height:220px;
+	vertical-align:top;
+}
+.pro_jd_table tbody tr td{
+	background:#efefef;
+	padding:0px 0px 10px 0;
+	height:50px;
+}
+.pro_jd_table tbody tr td:nth-child(2n){
+	background:#fff;	
+}
+	
+
+.plan_jd{
+	width:100%;
+	height:10px;
+	margin:10px 0;
+	background:#5a7ead;
+	
+}
+
+
+	
+.act_jd{
+	height:10px; 
+	margin:10px 0;
+	background:#b55b65;
+}
+.act_jd.no{
+	height:10px; 
+	margin:10px 0;
+	background:#6c6c6c;
+}
+.act_week:hover .act_jd.no{ 
+	background:rgba(108,108,108,0.8);
+	border:1px solid #6c6c6c;
+	box-sizing:border-box;
+}
+.act_week:hover{
+	cursor:pointer;
+}
+.act_week:hover .act_jd{ 
+	background:rgba(181,91,101,0.7);
+	border:1px solid #b55b65;
+	box-sizing:border-box;
+}
+
+.act_jd.this_week{
+	background:#7aa848;
+}
+.act_week:hover .act_jd.this_week{ 
+	background:rgba(122,168,72,0.7);
+	border:1px solid #7aa848;
+	box-sizing:border-box;
+}
+.this_wb{
+	background:#e5eed9 !important;
+}
+/************************弹出周进度详情******************************/
+.week_box{
+	width:600px;
+	padding:15px 30px;
+	height:auto;
+	max-height:320px;
+	background:rgba(255,255,255,0.9);
+	border-radius:5px;
+	box-shadow:0 0 10px rgba(0,0,0,0.3);
+	position:absolute;
+	z-index:10;
+	top:30px;
+	left:50%;
+	margin-left:-300px;
+	display:none;
+}
+.week_box.is-display{
+	display:block;
+}
+
+.week_boxin{
+	width:100%;
+	height:auto;
+	overflow:auto;
+}
+.week_boxin h3{
+	width:100%;
+	text-align:center;
+	font-weight:bold;
+}
+
+.week_table tbody tr td{
+	padding:5px;
+	line-height:22px;
+	vertical-align:text-top;
+}
+
+.week_table tbody tr td:first-child{
+	text-align:right;
+	color:#777;
+	word-break:keep-all;
+}
+.over_sbox{
+	margin-top:4px;
+	height:24px;
+
+}
+.over_sbox h3{
+	float:left;
+}
+.over_s{
+	float:left;
+	height:16px;
+	margin-top:6px;
+	width:500px;
+	background:#939393;
+	overflow:hidden;
+	border-radius:2px;
+	position:relative;
+}
+.over_s span{
+	position:absolute;
+	z-index:100;
+	color:#fff;
+	line-height:16px;
+	top:0px;
+	width:60px;
+	left:50%;
+	margin-left:-30px;
+}

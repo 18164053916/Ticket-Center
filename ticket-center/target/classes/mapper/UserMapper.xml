@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ticketcenter.dao.UserDAO">
+
+
+
+    <insert id="addUser">
+      insert into t_user
+        (id,display_name,pass_word,user_name,pro_type,sys_role_id)
+      values (
+        nextval('s_user'),#{user.displayName},#{user.password},#{user.name},#{user.proType},#{user.roleId}
+      )
+    </insert>
+    <update id="updateUser">
+      update t_user
+        <trim prefix="set" suffixOverrides=",">
+        <if test="user.displayName != null">
+            display_name=#{user.displayName},
+        </if>
+        <if test="user.name != null">
+            user_name=#{user.name},
+        </if>
+        <if test="user.proType != null">
+            pro_type=#{user.proType},
+        </if>
+        <if test="user.roleId != null">
+            sys_role_id=#{user.roleId},
+        </if>
+        </trim>
+      where id=#{user.id} and is_delete=0
+    </update>
+    <update id="deleteUser">
+        update t_user set is_delete=1 where id=#{id}
+    </update>
+
+    <select id="getUsers" resultType="com.ticketcenter.model.User">
+      select u.id,display_name as displayName,pass_word as password,user_name as name,
+      pro_type as proType,sys_role_id as roleId,r.sys_role_desc as roleDesc,
+      (select count(1) from t_user where (1=1) and is_delete=0 ) as total
+      from t_user u
+      left join t_sys_role r on u.sys_role_id=r.id
+      where (1=1) and is_delete=0
+      order by u.id
+      limit  ${limit}  offset  ${offset}
+    </select>
+
+    <select id="queryUsersByName" parameterType="string" resultType="User">
+        select u.id as id,u.user_name as name,u.pass_word as password,u.display_name displayName,
+        u.pro_type as proType,u.sys_role_id as roleId,
+        tsr.sys_role_desc as sysDesc,tp.permission_url as permissionUrl,
+        tp.permission_name as permissionName,tp.permission_class as permissionClass
+        from t_user u
+        inner join t_sys_role tsr
+        on tsr.id=u.sys_role_id
+        left join t_role_permission trp
+        on trp.sys_role_id=tsr.id
+        left join t_permission tp
+        on trp.per_id=tp.id
+        where u.user_name=#{userName} and u.is_delete=0
+    </select>
+    <select id="getAllUsers" resultType="com.ticketcenter.model.User">
+        select
+          u.id,display_name as displayName,pass_word as password,user_name as name,
+          pro_type as proType,sys_role_id as roleId,r.sys_role_desc as roleDesc
+        from t_user u
+        left join t_sys_role r on u.sys_role_id=r.id
+        where (1=1) and u.is_delete=0
+        order by u.id
+    </select>
+
+
+    <update id="updateUserPwd">
+        update t_user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="user.newPassword != null">
+                pass_word=#{user.password},
+            </if>
+        </trim>
+        where id=#{user.id}
+    </update>
+
+
+    <update id="updateUserLoginStatus">
+        update t_user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="user.lastLoginDate != null">
+                last_login_date=now(),
+            </if>
+        </trim>
+        where id=#{user.id} and is_delete=0
+    </update>
+
+
+</mapper>

@@ -1,0 +1,408 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+ *{
+	 margin:0;
+	 padding:0;
+	 box-sizing:border-box;
+ }
+
+html,body{ height:100%; width:100%; padding:0; margin:0;-webkit-touch-callout:none;
+	-webkit-text-size-adjust:none;
+	-webkit-tap-highlight-color:rgba(0, 0, 0, 0);
+	-webkit-user-select:none;
+	background:#fbfbfb;
+	background-size:20%;
+	font-family:"微软雅黑";
+	word-wrap:break-word;
+	position:relative;	
+	height: 100%;
+	width:100%;
+	
+	}
+
+
+ul{
+	list-style:none;
+}
+
+img{
+	width:100%;
+    height:auto;
+    margin:0 auto;
+}
+input{
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	-ms-appearance:none;
+	-o-appearance:none;		
+}
+/****************************************************************************/
+.clear {
+	width: 0px;
+	height: 0px;
+	overflow: hidden;
+	clear: both;
+}
+
+
+
+/**************************************手机版公示*******************************************/
+
+.layout-fixed{
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+	flex-direction:column;
+	-ms-flex-direction:column;
+	-webkit-flex-direction:column;
+}
+
+header, section{
+	display: block;
+}
+
+.ios_header {
+	height:auto;
+	border-bottom:1px solid #d8dadc;
+	overflow:hidden;
+}
+
+.ios_main{
+	-webkit-flex:1;
+    -ms-flex:1;
+    flex:1;
+	overflow:hidden;
+	display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+	flex-direction:column;
+	-ms-flex-direction:column;
+	-webkit-flex-direction:column;
+}
+
+.content_a{
+	height:160px;
+	width:100%;
+	overflow:hidden;
+	position:relative;
+}
+
+.jd_line{
+	width:100%;
+	height:16px;
+	background:#919293;
+	position:relative;
+	margin-bottom:10px;
+}
+.content_b{
+	-webkit-flex:1;
+    -ms-flex:1;
+    flex:1;
+	width:100%;
+	overflow:auto;
+	-webkit-overflow-scrolling : touch;
+}
+/**********项目标题*************/	
+	
+.ios_header h2{
+	width:100%;
+	height:auto;
+	display:block;
+	line-height:26px;
+	font-size:16px;
+	color:#222;
+	box-sizing:border-box;
+	padding:5px 8px 0px 32px;
+	background:url(../imges/ico01.png) no-repeat 8px 8px;
+	background-size:5%;
+	line-height:1.5em;
+	font-weight:bold;
+	
+}
+.ios_header h3{
+	padding:0 8px 5px 32px;
+	font-size:13px;
+	color:#515964;
+	line-height:1.5em;
+}
+
+/*************总进度条****************/
+.jd_over{
+	width:69%;
+	height:16px;
+	background:#b55b65;
+}
+
+.all_jd{
+	width:200px;
+	height:16px;
+	font-size:12px;
+	line-height:16px;
+	color:#fff;
+	text-align:center;
+	position:absolute;
+	left:50%;
+	margin-left:-100px;
+	top:0;
+	font-weight:normal;
+}
+
+.jd_tweek{
+	width:66%;
+	height:16px;
+	background:#7aa848;
+}
+/**********************甘特图****************************************************/
+#container{
+	width:100%;
+	margin-top:30px;
+	height:130px;
+	overflow-x:auto;
+	overflow-y:hidden;
+}
+
+.iframe_box{
+	width:100%;
+	height:100%;
+}
+
+
+
+/*********************gt_body******************************/	
+
+
+
+
+.tg_ts{
+	height:20px;
+	position:absolute;
+	z-index:1;
+	top:5px;
+	right:5px;
+}
+.ts_c{
+	margin:4px;
+	width:12px;
+	height:12px;
+	display:block;
+	float:left;
+	border-radius:2px;
+}
+.jh_col{
+
+	background:#5a7ead;
+	
+}
+.tg_ts p{
+	display:block;
+	float:left;
+	padding-right:10px;
+	line-height:20px;
+	color:#515964;
+	font-size:11px;
+}
+
+.sj_col{
+	background:#b55b65;
+}
+.bz_col{
+	background:#7aa848;
+}
+.no_col{
+	background:#6c6c6c;
+}
+
+/***************手机版甘特图table***********************************/
+
+.pro_jd_table_ios{
+	width:auto;
+	box-sizing:border-box;
+}
+.pro_jd_t_ios tr th{
+	text-align:center;
+	width:70px;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	word-break:keep-all;
+	white-space:nowrap;
+	background:#efefef;
+	padding:3px 5px;
+	font-family:"微软雅黑";
+	border-bottom:3px solid #3c444f;
+
+}
+.pro_jd_t_ios tr th:nth-child(2n){
+	background:#fff;	
+}
+.pro_jd_t_ios tr th h3{
+	font-weight:bold;
+	line-height:18px;
+	font-size:12px;
+}
+.pro_jd_t_ios tr th p{
+	color:#777;
+	font-size:11px;
+	line-height:16px;
+}
+.pro_jd_table_ios tbody .act_tr_ios{
+	height:55px;
+	vertical-align:top;
+}
+.pro_jd_table_ios tbody tr td{
+	background:#efefef;
+	padding:0px;
+}
+.pro_jd_table_ios tbody tr td:nth-child(2n){
+	background:#fff;	
+}
+	
+
+.plan_jd_ios{
+	width:100%;
+	height:10px;
+	margin:10px 0;
+	background:#5a7ead;
+	
+}
+
+
+	
+.act_jd_ios{
+	height:10px; 
+	margin:10px 0;
+	background:#b55b65;
+}
+.act_jd_ios.no{
+	height:10px; 
+	margin:10px 0;
+	background:#6c6c6c;
+}
+.act_week_ios:hover .act_jd_ios.no{ 
+	background:rgba(108,108,108,0.8);
+	border:1px solid #6c6c6c;
+	box-sizing:border-box;
+}
+.act_week_ios:hover{
+	cursor:pointer;
+}
+.act_week_ios:hover .act_jd_ios{ 
+	background:rgba(181,91,101,0.7);
+	border:1px solid #b55b65;
+	box-sizing:border-box;
+}
+
+.act_jd_ios.this_week_ios{
+	background:#7aa848;
+}
+.act_week_ios:hover .act_jd_ios.this_week_ios{ 
+	background:rgba(122,168,72,0.7);
+	border:1px solid #7aa848;
+	box-sizing:border-box;
+}
+.this_wb_ios{
+	background:#e5eed9 !important;
+}
+
+
+/************************进度线*********************/
+.gt_inbox{
+	width:100%;
+	background:url(../imges/bg01.jpg) repeat;
+	height:auto;
+	min-height:50px;
+}
+
+.sj_week_box{
+	width:100%;
+	height:30px;
+	position:relative;
+}
+.jd_sj{	
+	height:8px;
+	margin:11px 0;
+	display:block;
+
+	background:#b55b65;
+}
+
+.jd_sj.week_sj{
+	position:absolute;
+	left:0;
+	width:76%;
+}
+	
+
+
+/*****************************任务详情**********************************/
+
+.xq_outbox{
+	width:100%;
+	height:auto;
+}
+.xq_tit{
+	width:100%;
+	height:39px;
+	padding:8px 10px 8px 30px;
+	background:url(../imges/ico02.png) no-repeat 8px 8px;
+	background-size:5%;
+	border-bottom:1px solid #d8dadc;
+	
+}
+.xq_tit h3{
+	font-size:14px;
+	color:#515964;
+	float:left;
+	line-height:22px;
+	font-weight:normal;
+}
+.xq_tit span{
+	float:right;
+	font-size:12px;
+	line-height:22px;
+	color:#777;
+}
+
+.xq_inbox{
+	background:#fff;
+	border-bottom:1px solid #d8dadc;	
+	height:auto;
+	min-height:39px;
+	display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;/***flex将对象作为弹性伸缩盒显示，inline-flex：将对象作为内联块级弹性伸缩盒显示***/
+	-webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;/**row从左到右排列,row-reverse从右到左排列，column从上到下顶对齐，column-reverse从下到上**/
+}
+
+.xq_left{
+	width:95px;
+	line-height:22px;
+	padding:8px 6px;
+	color:#515964;
+	text-align:right;
+	font-size:13px;
+}
+
+.xq_right{
+	width:calc(100% - 100px);
+	line-height:22px;
+	padding:8px 6px;
+	color:#222;
+	font-size:13px;
+	height:auto;
+	-webkit-flex:1;
+    -ms-flex:1;
+    flex:1;
+}
+	
+
+	
+	
+	
+	
+	

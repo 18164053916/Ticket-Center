@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ticketcenter.dao.AuditDao">
+
+    <insert id="insertAuditLog">
+
+                   insert into t_audit_log(id,progress_id,audit_date,audit_result,audit_desc,audit_person)
+                   VALUES
+                     (nextval('s_audit_log'),#{auditLog.progressId},now(),#{auditLog.auditResult},#{auditLog.auditDesc},#{user.id});
+
+            </insert>
+
+
+    <update id="updateAuditState">
+        update t_project set
+        is_audit=#{isAudit},update_date=now()
+        where id=#{projectId};
+
+    </update>
+
+
+
+</mapper>

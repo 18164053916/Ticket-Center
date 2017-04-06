@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ticketcenter.dao.ProjectDao">
+
+
+    <!--is_end ,is_terminal ,
+    terminal_reason 终止原因,terminal_remark 终止备注,create_date ,update_date ,workorder_no 工单号 -->
+    <insert id="addProject">
+        insert into t_project(
+          id,end_date,start_date,project_name,project_code,estimate_efforts,project_type_id,
+          client_name,project_leader_id,dev_inter_name,dev_inter_email,
+          scene_inter_name,scene_inter_mail,req_inter_name,req_inter_mail,req_type_id,
+          req_keywords,create_date,update_date,
+          workorder_no,uuid
+        )
+        values(
+            nextval('s_project'),cast('${endDate}' as date),cast('${startDate}' as date),#{name},#{code},#{estimatedDays},#{type},
+            #{customerName},#{scheduleMaintenanceUserId},#{developerKeyUser},#{demandKeyUserEmail},
+            #{sceneKeyUser},#{sceneKeyUserEmail},#{demandKeyUser},#{demandKeyUserEmail},#{demandType},
+            #{demandKeyword},now(),now(),
+            (
+            select to_char(now(),'YYYY')||Lpad(COALESCE(CAST(MAX(to_number(substring(workorder_no from char_length(workorder_no)-3 for 4), '9999'))+1 as VARCHAR),'1'),4,'0') as workorder_no
+            from t_project where (1=1)
+            and project_type_id =${type}
+            and workorder_no like to_char(now(),'YYYY')||'%'
+            ),#{uuid}
+        );
+        <if test="members!=null and members.size()>0">
+            insert into t_project_user
+            (id,user_id,project_id)
+            values
+            <foreach collection="members" item="member" separator=",">
+                (
+                nextval('s_project_user'),CAST(#{member} as numeric),(select id from t_project where uuid = #{uuid})
+                )
+            </foreach>
+        </if>
+
+    </insert>
+
+    <update id="updateProject">
+        update t_project
+        set end_date=cast('${endDate}' as date),start_date=cast('${startDate}' as date),project_name=#{name},project_code=#{code},
+            estimate_efforts=#{estimatedDays},project_type_id=#{type},client_name=#{customerName},
+            project_leader_id=#{scheduleMaintenanceUserId},
+            dev_inter_name=#{developerKeyUser},dev_inter_email=#{developerKeyUserEmail},
+            scene_inter_name=#{sceneKeyUser},scene_inter_mail=#{sceneKeyUserEmail},
+            req_inter_name=#{demandKeyUser},req_inter_mail=#{demandKeyUserEmail},
+            req_type_id=#{demandType},req_keywords=#{demandKeyword},update_date=now(),uuid=#{uuid}
+        where id=#{id};
+
+        delete from t_project_user where project_id = #{id};
+        <if test="members!=null and members.size()>0">
+            insert into t_project_user
+            (id,user_id,project_id)
+            values
+            <foreach collection="members" item="member" separator=",">
+                (
+                nextval('s_project_user'),CAST(#{member} as numeric),(select id from t_project where uuid = #{uuid})
+                )
+            </foreach>
+        </if>
+
+
+    </update>
+    <update id="stopProject">
+        update t_project
+        set is_terminal=1,terminal_reason=#{stopReason},terminal_remark=#{stopMemo},is_audit=1
+        where id=#{id}
+    </update>
+
+    <update id="finishProject">
+        update t_project
+        set is_end=1,finish_date=cast('${finishDate}' as date),update_date=now(),is_audit=1
+        where id=#{id}
+    </update>
+
+    <!--where COALESCE(is_terminal,0)=0-->
+    <select id="getProjects" resultMap="projectList">
+        select p.id as pid,u1.display_name as scheduleMaintenanceUserName,*
+        from (
+          select *,(select count(1) from t_project) as total
+          from t_project
+          order by id
+          limit  ${limit}  offset  ${offset}
+        ) p
+        left join t_project_user pu on p.id=pu.project_id
+        left join t_user  u on pu.user_id=u.id
+        left join t_user  u1 on u1.id = p.project_leader_id
+        left join t_project_type pt on pt.id=p.project_type_id
+        left join t_req_type rt on rt.id = p.req_type_id
+        order by pid
+    </select>
+    <select id="getProjectTypes" resultType="com.ticketcenter.model.ProjectType">
+        select *,pro_desc as name from t_project_type
+    </select>
+
+    <sql id="projectFilter">
+        <foreach item="value" index="key" collection="pager.filter.entrySet()">
+            <if test="key=='code' and value!=null and value !=''">
+                and project_code like '%${value}%'
+            </if>
+            <if test="key=='name' and value!=null and value !=''">
+                and project_name like '%${value}%'
+            </if>
+            <if test="key=='customerName' and value!=null and value !=''">
+                and client_name like '%${value}%'
+            </if>
+            <if test="key=='workOrderNumber' and value!=null and value !=''">
+                and pt.type||p.workorder_no like '%${value}%'
+            </if>
+            <if test="key=='status' and value=='doing'">
+                and is_end=0 and is_terminal=0
+            </if>
+            <if test="key=='status' and value=='finish'">
+                and is_end=1 and is_terminal=0
+            </if>
+            <if test="key=='status' and value=='stop'">
+                and is_end=0 and is_terminal=1
+            </if>
+        </foreach>
+
+        <if test="user.roleId!=1">
+            and project_leader_id=#{user.id}
+        </if>
+
+    </sql>
+
+    <select id="getProjectsWithFilter" resultMap="projectList">
+        select p.id as pid,u1.display_name as scheduleMaintenanceUserName,*
+        from (
+          select pt.type||p.workorder_no as workorder_no,p.*,
+          (
+            select count(1)
+            from t_project p
+            left join t_project_type pt on pt.id=p.project_type_id
+            where (1=1)
+            <include refid="projectFilter"></include>
+          ) as total
+          from t_project  p
+          left join t_project_type pt on pt.id=p.project_type_id
+          where (1=1)
+          <include refid="projectFilter"></include>
+          order by p.id DESC
+          <if test="pager.pageFlag">
+              limit  ${pager.pageSize}  offset  (${pager.current}-1)*${pager.pageSize}
+          </if>
+        ) p
+        left join t_project_user pu on p.id=pu.project_id
+        left join t_user  u on pu.user_id=u.id
+        left join t_user  u1 on u1.id = p.project_leader_id
+        left join t_project_type pt on pt.id=p.project_type_id
+        left join t_req_type rt on rt.id = p.req_type_id
+        order by pid DESC
+    </select>
+
+
+    <select id="getProgressList" resultMap="progressList">
+
+        select tt.id as pid, tpt.type||tt.workorder_no as workorder_no,
+        tt.start_date,tt.end_date, tt.project_code,
+        tt.project_name,tpt.pro_desc,tt.is_risk,tt.is_updated,tps.id as progressId,
+        tt.estimate_efforts,tps.progress_order,tps.ratio,tps.id,tuser.display_name,tal.*,tps.*,
+        (select  count(1) from t_project ss where
+        ss.is_end=0 and ss.is_terminal=0
+        <if test="queryType== 'LEADER'">
+            and ss.project_leader_id=#{user.id}
+        </if>
+
+        <foreach item="value" index="key" collection="pager.filter.entrySet()">
+            <if test="key=='code' and value!=null and value !=''">
+                and ss.project_code like '%${value}%'
+            </if>
+            <if test="key=='name' and value!=null and value !=''">
+                and ss.project_name like '%${value}%'
+            </if>
+            <if test="key=='workOrderNo' and value!=null and value !=''">
+                and ss.workorder_no like '%${value}%'
+            </if>
+            <if test="key=='isRisk' and value!=null and value !=''">
+                and ss.is_risk = '${value}'
+            </if>
+            <if test="key=='isUpdated' and value!=null and value !=''">
+                and ss.is_updated = '${value}'
+            </if>
+        </foreach>
+
+        )
+        as total
+
+        <if test="queryType== 'ADMIN'">
+        <!--start 审核进度需要添加的sql-->
+        <trim prefix="," >
+            (select tpro.ratio from t_project stp
+            left join t_progress tpro on stp.id=tpro.pro_id where stp.id=tt.id
+            and tpro.progress_order in (select max(tprogr11.progress_order)
+            from t_progress tprogr11 where tprogr11.pro_id=tt.id)
+            ) as maxRatio,
+        (select count(tpro1.is_risk) from t_project stp1
+        left join t_progress tpro1 on stp1.id=tpro1.pro_id and tpro1.is_risk=2 where stp1.id=tt.id) as riskCount,
+        (select count(tpro2.is_updated) from t_project stp2
+        left join t_progress tpro2 on stp2.id=tpro2.pro_id and tpro2.is_updated=2 where stp2.id=tt.id) as updatedCount
+        </trim>
+        <!--end 审核进度需要添加的sql-->
+        </if>
+         from (select * from t_project m
+        where
+         m.is_end=0 and m.is_terminal=0
+        <if test="queryType== 'LEADER'">
+            and  m.project_leader_id=#{user.id}
+        </if>
+        <foreach item="value" index="key" collection="pager.filter.entrySet()">
+            <if test="key=='isAudit' and value!=null and value ==1">
+                order by m.end_date
+            </if>
+            <if test="key=='isAudit' and value!=null and value ==2">
+                order by m.is_audit desc,m.end_date
+            </if>
+        </foreach>
+        <if test="pager.pageFlag">
+            limit  ${pager.pageSize}  offset  (${pager.current}-1)*${pager.pageSize}
+        </if>
+        ) tt
+        left join t_progress tps on tps.pro_id=tt.id
+        and tps.end_date_item between to_date(#{firstSunday},'yyyy-mm-dd')
+        and to_date(#{lastSunday},'yyyy-mm-dd')
+        left join t_project_type tpt on tpt.id=tt.project_type_id
+        left join t_audit_log tal on tal.progress_id=tps.id and tal.audit_flag=1
+        left join t_user tuser on tuser.id=tt.project_leader_id
+        where
+        tt.is_end=0 and tt.is_terminal=0
+        <if test="queryType== 'LEADER'">
+            and  tt.project_leader_id=#{user.id}
+        </if>
+        <foreach item="value" index="key" collection="pager.filter.entrySet()">
+            <if test="key=='code' and value!=null and value !=''">
+                and tt.project_code like '%${value}%'
+            </if>
+            <if test="key=='name' and value!=null and value !=''">
+                and tt.project_name like '%${value}%'
+            </if>
+            <if test="key=='workOrderNo' and value!=null and value !=''">
+                and tt.workorder_no like '%${value}%'
+            </if>
+            <if test="key=='isRisk' and value!=null and value !=''">
+                and tt.is_risk = '${value}'
+            </if>
+            <if test="key=='isUpdated' and value!=null and value !=''">
+                and tt.is_updated = '${value}'
+            </if>
+        </foreach>
+
+
+        <foreach item="value" index="key" collection="pager.filter.entrySet()">
+            <if test="key=='isAudit' and value!=null and value ==1">
+                order by tt.end_date,tps.end_date_item
+            </if>
+            <if test="key=='isAudit' and value!=null and value ==2">
+                order by tt.is_audit desc,tt.end_date,tps.end_date_item
+            </if>
+        </foreach>
+
+
+    </select>
+
+
+    <resultMap id="projectList" type="com.ticketcenter.model.Project">
+        <id column="id" property="id"></id>
+        <result column="end_date" property="endDate"></result>
+        <result column="start_date" property="startDate"></result>
+        <result column="finish_date" property="finishDate"></result>
+        <result column="project_name" property="name"></result>
+        <result column="project_code" property="code"></result>
+        <result column="estimate_efforts" property="estimatedDays"></result>
+        <result column="project_type_id" property="type"></result>
+        <result column="pro_desc" property="typeName"></result>
+        <result column="client_name" property="customerName"></result>
+        <result column="project_leader_id" property="scheduleMaintenanceUserId"></result>
+        <result column="scheduleMaintenanceUserName" property="scheduleMaintenanceUserName"></result>
+        <result column="dev_inter_name" property="developerKeyUser"></result>
+        <result column="dev_inter_email" property="developerKeyUserEmail"></result>
+        <result column="scene_inter_name" property="sceneKeyUser"></result>
+        <result column="scene_inter_mail" property="sceneKeyUserEmail"></result>
+        <result column="req_inter_name" property="demandKeyUser"></result>
+        <result column="req_inter_mail" property="demandKeyUserEmail"></result>
+        <result column="req_type_id" property="demandType"></result>
+        <result column="req_desc" property="demandTypeName"></result>
+        <result column="req_keywords" property="demandKeyword"></result>
+        <result column="workorder_no" property="workOrderNumber"></result>
+        <result column="terminal_reason" property="stopReason"></result>
+        <result column="terminal_remark" property="stopMemo"></result>
+        <result column="uuid" property="uuid"></result>
+        <result column="total" property="total"></result>
+        <collection property="members" ofType="java.lang.String">
+            <result column="user_id"></result>
+        </collection>
+        <collection property="membersName" ofType="java.lang.String">
+            <result column="display_name"></result>
+        </collection>
+    </resultMap>
+
+
+
+    <resultMap id="progressList" type="com.ticketcenter.model.Project">
+        <id column="pid" property="id"></id>
+        <result column="end_date" property="endDate"></result>
+        <result column="start_date" property="startDate"></result>
+        <result column="finish_date" property="finishDate"></result>
+        <result column="project_name" property="name"></result>
+        <result column="project_code" property="code"></result>
+        <result column="pro_desc" property="proTypeName"></result>
+        <result column="estimate_efforts" property="estimatedDays"></result>
+        <result column="project_type_id" property="type"></result>
+        <result column="workorder_no" property="workOrderNumber"></result>
+        <result column="display_name" property="projectLeader"></result>
+        <result column="total" property="total"></result>
+        <result column="progressid" property="progressId"></result>
+        <result column="updatedCount" property="updatedCount"></result>
+        <result column="maxRatio" property="maxRatio"></result>
+        <result column="riskCount" property="riskCount"></result>
+        <result column="is_risk" property="isRisk"></result>
+        <result column="is_updated" property="isUpdated"></result>
+        <collection property="progressList" ofType="com.ticketcenter.model.Progress" column="pro_id">
+            <id column="id" property="id"></id>
+            <result column="progress_order" property="progressOrder"></result>
+            <result column="start_date_item" property="startDate"></result>
+            <result column="end_date_item" property="endDate"></result>
+            <result column="ratio" property="effortsHours"></result>
+            <association property="auditLog" column="progress_id" javaType="com.ticketcenter.model.AuditLog">
+                <result property="auditResult" column="audit_result"/>
+            </association>
+
+        </collection>
+    </resultMap>
+
+
+</mapper>
