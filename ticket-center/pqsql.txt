@@ -1,9 +1,9 @@
-°²×°Êı¾İ¿â
+ê°›é™‹é‘’ì•´ìš‹
 D:\pgsql\bin>initdb.exe -D D:\pgsql\data -E UTF8
-×¢²á·şÎñ
+2222================
 D:\pgsql\bin>pg_ctl register -N postgresv2 -D D:\pgsql\data
-´´½¨½ÇÉ«
+ëˆ¼ì‰”ì‹¤î€Š
 D:\pgsql\bin>psql postgres
 D:\pgsql\bin>create user pub password '';
 create user pub password '';
-°¡°¡°¡
+222222222222222222
