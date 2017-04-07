@@ -6,4 +6,4 @@ D:\pgsql\bin>pg_ctl register -N postgresv2 -D D:\pgsql\data
 D:\pgsql\bin>psql postgres
 D:\pgsql\bin>create user pub password '';
 create user pub password '';
-aaaaaaa
+°¡°¡°¡
