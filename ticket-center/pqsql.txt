@@ -1,0 +1,9 @@
+安装数据库
+D:\pgsql\bin>initdb.exe -D D:\pgsql\data -E UTF8
+注册服务
+D:\pgsql\bin>pg_ctl register -N postgresv2 -D D:\pgsql\data
+创建角色
+D:\pgsql\bin>psql postgres
+D:\pgsql\bin>create user pub password '';
+create user pub password '';
+aaaaaaa
