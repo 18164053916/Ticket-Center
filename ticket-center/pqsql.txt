@@ -1,9 +1,5 @@
-°²×°Êý¾Ý¿â
-D:\pgsql\bin>initdb.exe -D D:\pgsql\data -E UTF8
-×¢²á·þÎñ
-D:\pgsql\bin>pg_ctl register -N postgresv2 -D D:\pgsql\data
-´´½¨½ÇÉ«
-D:\pgsql\bin>psql postgres
-D:\pgsql\bin>create user pub password '';
-create user pub password '';
-°¡°¡°¡
+ï»¿
+
+
+This is the dev branch
+Please merge it to Master branch
